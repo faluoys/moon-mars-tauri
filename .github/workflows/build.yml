@@ -57,6 +57,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: ./src-tauri/target/release/bundle/**/*
+          token: ${{ secrets.MOONMARS_TOKEN }}
           name: 'App v__VERSION__'
           body: 'See the assets to download this version and install.'
           draft: true
