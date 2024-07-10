@@ -43,7 +43,7 @@ jobs:
           pnpm tauri build
 
       - name: Create Release
-        uses: tauri-apps/tauri-action@v1
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.MOONMARS_TOKEN }}
         with:
