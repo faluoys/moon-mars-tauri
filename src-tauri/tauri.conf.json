@@ -66,13 +66,6 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ]
-    },
-    "updater": {
-      "active": true,
-      "provider": "github",
-      "owner": "faluoys",
-      "repo": "moon-mars-app",
-      "releaseType": "release"
     }
   }
 }
