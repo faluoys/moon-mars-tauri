@@ -1,0 +1,78 @@
+{
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist"
+  },
+  "package": {
+    "productName": "moon-mars",
+    "version": "0.0.8"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "http": {
+        "scope": ["http://**", "https://**"]
+      },
+      "shell": {
+        "all": false,
+        "open": true
+      },
+      "fs": {
+        "all": true,
+        "scope": ["*", "$DOWNLOAD/*"]
+      },
+      "window": {
+        "all": false,
+        "close": true,
+        "hide": true,
+        "show": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true
+      }
+    },
+    "windows": [
+      {
+        "label": "main",
+        "title": "moon-mars",
+        "fullscreen": false,
+        "resizable": true,
+        "fileDropEnabled": false,
+        "width": 1031,
+        "height": 670,
+        "center": true,
+        "decorations": false
+      }
+    ],
+    "systemTray": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true
+    },
+    "security": {
+      "csp": null
+    },
+    "bundle": {
+      "active": true,
+      "targets": "all",
+      "identifier": "com.moon-mars.zf",
+      "icon": [
+        "icons/icon-32x32.png",
+        "icons/icon-128x128.png",
+        "icons/icon-128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ]
+    },
+    "updater": {
+      "active": true,
+      "provider": "github",
+      "owner": "faluoys",
+      "repo": "moon-mars-app",
+      "releaseType": "release"
+    }
+  }
+}
