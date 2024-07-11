@@ -42,20 +42,20 @@ jobs:
           pnpm install
           pnpm tauri build
 
-      - name: Set Version
-        id: version
-        run: echo "VERSION=$(pnpm tauri info --version)" >> $GITHUB_ENV
+      - name: List Files for Debugging
+        run: ls -R src-tauri/target/release/bundle
 
-      - name: Debug Version
-        run: echo "Version v${{ env.VERSION }}"
+      - name: Print Version
+        run:
+          echo "The version is v __VERSION__ v__VERSION__"
 
       - name: Create Release
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.MOONMARS_TOKEN }}
         with:
-          tagName: v${{ env.VERSION }}
-          releaseName: v${{ env.VERSION }}
+          tagName: v__VERSION__ # Tauri action will replace __VERSION__ with the actual version number
+          releaseName: 'v__VERSION__'
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
@@ -63,10 +63,10 @@ jobs:
       - name: Publish to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: src-tauri/target/release/bundle/**/*
+          files: src-tauri/target/release/bundle/*/*
           token: ${{ secrets.MOONMARS_TOKEN }}
-          name: v${{ env.VERSION }}
-          tag_name: v${{ env.VERSION }}
+          name: 'v__VERSION__'
+          tag_name: 'v__VERSION__'
           body: 'See the assets to download this version and install.'
           draft: false
           prerelease: false
