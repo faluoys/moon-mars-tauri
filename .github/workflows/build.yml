@@ -45,17 +45,21 @@ jobs:
       - name: List Files for Debugging
         run: ls -R src-tauri/target/release/bundle
 
+      - name: Read Version from tauri.conf.json
+        id: get_version
+        run: echo "VERSION=$(jq -r '.package.version' < src-tauri/tauri.conf.json)" >> $GITHUB_ENV
+
       - name: Print Version
         run:
-          echo "The version is v __VERSION__ v__VERSION__"
+          echo "The version is ${{ env.VERSION }}"
 
       - name: Create Release
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.MOONMARS_TOKEN }}
         with:
-          tagName: v__VERSION__ # Tauri action will replace __VERSION__ with the actual version number
-          releaseName: 'v__VERSION__'
+          tagName: v${{ env.VERSION }} # Tauri action will replace __VERSION__ with the actual version number
+          releaseName: 'v${{ env.VERSION }}'
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
@@ -65,8 +69,8 @@ jobs:
         with:
           files: src-tauri/target/release/bundle/*/*
           token: ${{ secrets.MOONMARS_TOKEN }}
-          name: 'v__VERSION__'
-          tag_name: 'v__VERSION__'
+          name: 'v${{ env.VERSION }}'
+          tag_name: 'v${{ env.VERSION }}'
           body: 'See the assets to download this version and install.'
           draft: false
           prerelease: false
