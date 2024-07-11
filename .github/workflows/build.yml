@@ -47,9 +47,9 @@ jobs:
 
       - name: Set Version
         if: runner.os == 'Windows'
-        id: version
+        id: version-Windows
         run: |
-          $VERSION = (jq -r '.package.version' < src-tauri/tauri.conf.json)
+          $VERSION = (Get-Content -Raw -Path src-tauri/tauri.conf.json | ConvertFrom-Json).package.version
           echo "VERSION=$VERSION" >> $env:GITHUB_ENV
 
       - name: Set Version
