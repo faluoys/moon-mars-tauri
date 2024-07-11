@@ -45,15 +45,20 @@ jobs:
       - name: List Files for Debugging
         run: ls -R src-tauri/target/release/bundle
 
-      - name: Set Version
+      - name: Set Version (Linux and macOS)
+        if: runner.os != 'Windows'
         id: version
         run: |
-          if [ "${{ runner.os }}" == "Windows" ]; then
-            pwsh -command '$VERSION = (Get-Content -Raw -Path src-tauri/tauri.conf.json | ConvertFrom-Json).package.version; echo "VERSION=$VERSION" >> $env:GITHUB_ENV'
-          else
-            VERSION=$(jq -r '.package.version' < src-tauri/tauri.conf.json)
-            echo "VERSION=$VERSION" >> $GITHUB_ENV
-          fi
+          VERSION=$(jq -r '.package.version' < src-tauri/tauri.conf.json)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Set Version (Windows)
+        if: runner.os == 'Windows'
+        id: version
+        run: |
+          $VERSION = (Get-Content -Raw -Path src-tauri/tauri.conf.json | ConvertFrom-Json).package.version
+          echo "VERSION=$VERSION" >> $env:GITHUB_ENV
+        shell: pwsh
 
 
       - name: Print Version
