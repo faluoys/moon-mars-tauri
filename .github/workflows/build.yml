@@ -49,11 +49,11 @@ jobs:
         id: version
         run: |
           if [ "${{ runner.os }}" == "Windows" ]; then
-            $VERSION = Get-Content -Raw -Path src-tauri/tauri.conf.json | ConvertFrom-Json | Select-Object -ExpandProperty package | Select-Object -ExpandProperty version
+            pwsh -command '$VERSION = (Get-Content -Raw -Path src-tauri/tauri.conf.json | ConvertFrom-Json).package.version; echo "VERSION=$VERSION" >> $env:GITHUB_ENV'
           else
             VERSION=$(jq -r '.package.version' < src-tauri/tauri.conf.json)
+            echo "VERSION=$VERSION" >> $GITHUB_ENV
           fi
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
 
       - name: Print Version
@@ -76,6 +76,7 @@ jobs:
         with:
           files: src-tauri/target/release/bundle/*/*
           token: ${{ secrets.MOONMARS_TOKEN }}
+          name: 'v${{ env.VERSION }}'
           tag_name: '${{ env.VERSION }}'
           body: 'See the assets to download this version and install.'
           draft: false
