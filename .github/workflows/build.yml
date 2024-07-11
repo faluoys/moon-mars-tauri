@@ -60,10 +60,8 @@ jobs:
           echo "VERSION=$VERSION" >> $env:GITHUB_ENV
         shell: pwsh
 
-
       - name: Print Version
-        run:
-          echo "The version is ${{ env.VERSION }}"
+        run: echo "The version is ${{ env.VERSION }}"
 
       - name: Create Release
         uses: tauri-apps/tauri-action@v0
