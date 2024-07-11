@@ -45,14 +45,14 @@ jobs:
       - name: List Files for Debugging
         run: ls -R src-tauri/target/release/bundle
 
-      - name: Set Version
+      - name: Set Windows Version
         if: runner.os == 'Windows'
         id: version-Windows
         run: |
           $VERSION = (Get-Content -Raw -Path src-tauri/tauri.conf.json | ConvertFrom-Json).package.version
           echo "VERSION=$VERSION" >> $env:GITHUB_ENV
 
-      - name: Set Version
+      - name: Set Macos or Linux Version
         if: runner.os != 'Windows'
         id: version
         run: |
