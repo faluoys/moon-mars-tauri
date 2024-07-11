@@ -48,12 +48,14 @@ jobs:
       - name: Set Version
         id: version
         run: |
-          if [ "${{ runner.os }}" == 'Windows' ]; then
-            pwsh -command '$VERSION = (Get-Content -Raw -Path src-tauri/tauri.conf.json | ConvertFrom-Json).package.version; echo "VERSION=$VERSION" >> $env:GITHUB_ENV'
-          else
+          if ($env:runner_os -eq "Windows") {
+            $VERSION = (Get-Content -Raw -Path src-tauri/tauri.conf.json | ConvertFrom-Json).package.version
+            echo "VERSION=$VERSION" >> $env:GITHUB_ENV
+          } else {
             VERSION=$(jq -r '.package.version' < src-tauri/tauri.conf.json)
             echo "VERSION=$VERSION" >> $GITHUB_ENV
-          fi
+          }
+        shell: pwsh
 
       - name: Print Version
         run:
