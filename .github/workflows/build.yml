@@ -46,16 +46,18 @@ jobs:
         run: ls -R src-tauri/target/release/bundle
 
       - name: Set Version
+        if: runner.os == 'Windows'
         id: version
         run: |
-          if ($env:runner_os -eq "Windows") {
-            $VERSION = (Get-Content -Raw -Path src-tauri/tauri.conf.json | ConvertFrom-Json).package.version
-            echo "VERSION=$VERSION" >> $env:GITHUB_ENV
-          } else {
-            VERSION=$(jq -r '.package.version' < src-tauri/tauri.conf.json)
-            echo "VERSION=$VERSION" >> $GITHUB_ENV
-          }
-        shell: pwsh
+          $VERSION = (jq -r '.package.version' < src-tauri/tauri.conf.json)
+          echo "VERSION=$VERSION" >> $env:GITHUB_ENV
+
+      - name: Set Version
+        if: runner.os != 'Windows'
+        id: version
+        run: |
+          VERSION=$(jq -r '.package.version' < src-tauri/tauri.conf.json)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Print Version
         run:
