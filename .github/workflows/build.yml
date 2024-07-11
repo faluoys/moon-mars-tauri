@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-latest, windows-latest]
+        platform: [ macos-latest, ubuntu-latest, windows-latest ]
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -48,9 +48,13 @@ jobs:
       - name: Set Version
         id: version
         run: |
-          $VERSION = Get-Content -Raw -Path src-tauri/tauri.conf.json | ConvertFrom-Json | Select-Object -ExpandProperty package | Select-Object -ExpandProperty version
+          if [ "${{ runner.os }}" == "Windows" ]; then
+            $VERSION = Get-Content -Raw -Path src-tauri/tauri.conf.json | ConvertFrom-Json | Select-Object -ExpandProperty package | Select-Object -ExpandProperty version
+          else
+            VERSION=$(jq -r '.package.version' < src-tauri/tauri.conf.json)
+          fi
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-      
+
 
       - name: Print Version
         run:
