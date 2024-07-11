@@ -43,7 +43,7 @@ jobs:
           pnpm tauri build
 
       - name: List Files for Debugging
-        run: ls -R src-tauri/target/release/bundle/
+        run: ls -R src-tauri/target/release/bundle
 
       - name: Create Release
         uses: tauri-apps/tauri-action@v0
@@ -55,6 +55,10 @@ jobs:
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
+
+      - name: Delay between uploads
+        run: sleep 30s  # 30秒延迟，可以根据需要调整时间
+        if: always()
 
       - name: Publish to GitHub
         uses: softprops/action-gh-release@v1
