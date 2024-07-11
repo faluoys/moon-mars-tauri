@@ -56,7 +56,7 @@ jobs:
       - name: Publish to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: src-tauri/target/release/bundle/**/*
+          files: src-tauri/target/release/**/*
           token: ${{ secrets.MOONMARS_TOKEN }}
           name: v__VERSION__
           tag_name: v__VERSION__
@@ -64,4 +64,3 @@ jobs:
           draft: false
           prerelease: true
           repository: faluoys/moon-mars-app
-          allowUpdates: true
