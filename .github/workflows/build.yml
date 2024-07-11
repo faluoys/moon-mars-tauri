@@ -56,14 +56,10 @@ jobs:
           releaseDraft: true
           prerelease: false
 
-      - name: Delay between uploads
-        run: sleep 30s  # 30秒延迟，可以根据需要调整时间
-        if: always()
-
       - name: Publish to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: src-tauri/target/release/bundle/**/*
+          files: src-tauri/target/release/bundle/*/*
           token: ${{ secrets.MOONMARS_TOKEN }}
           name: v__VERSION__
           tag_name: v__VERSION__
