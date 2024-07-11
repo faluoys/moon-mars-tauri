@@ -45,9 +45,12 @@ jobs:
       - name: List Files for Debugging
         run: ls -R src-tauri/target/release/bundle
 
-      - name: Read Version from tauri.conf.json
-        id: get_version
-        run: echo "VERSION=$(jq -r '.package.version' < src-tauri/tauri.conf.json)" >> $GITHUB_ENV
+      - name: Set Version
+        id: version
+        run: |
+          $VERSION = Get-Content -Raw -Path src-tauri/tauri.conf.json | ConvertFrom-Json | Select-Object -ExpandProperty package | Select-Object -ExpandProperty version
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+      
 
       - name: Print Version
         run:
