@@ -38,7 +38,8 @@ jobs:
           sudo apt-get install -y \
             libappindicator3-dev \
             webkit2gtk-4.0 \
-            libsoup2.4-dev
+            libsoup2.4-dev \
+            libjavascriptcoregtk-4.0-dev
 
       - name: Install app dependencies and build it
         run: |
