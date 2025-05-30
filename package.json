@@ -3,7 +3,7 @@
   "description": "Runs moon-mars",
   "author": "faluoys <1733524815@qq.com>",
   "private": true,
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,25 +12,27 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "vue": "^3.3.4",
     "@tauri-apps/api": "^1",
+    "echarts": "^5.6.0",
+    "vue": "^3.3.4",
+    "vue-echarts": "^7.0.3",
     "vue-i18n": "^9.13.1",
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^1",
     "@vicons/antd": "^0.12.0",
     "@vicons/ionicons5": "^0.12.0",
     "@vitejs/plugin-vue": "^5.0.4",
-    "typescript": "^5.0.2",
-    "vite": "^5.0.0",
-    "vue-tsc": "^1.8.5",
-    "@tauri-apps/cli": "^1",
     "less": "^4.2.0",
     "less-loader": "^12.2.0",
     "naive-ui": "^2.38.2",
     "tailwindcss": "^3.4.3",
+    "typescript": "^5.0.2",
     "unplugin-auto-import": "^0.17.5",
     "unplugin-vue-components": "^0.26.0",
-    "vfonts": "^0.0.3"
+    "vfonts": "^0.0.3",
+    "vite": "^5.0.0",
+    "vue-tsc": "^1.8.5"
   }
 }
