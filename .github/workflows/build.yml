@@ -31,11 +31,14 @@ jobs:
         with:
           toolchain: stable
 
-      - name: Install appindicator and webkit2gtk (ubuntu only)
+      - name: Install Linux system dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libappindicator3-dev webkit2gtk-4.0
+          sudo apt-get install -y \
+            libappindicator3-dev \
+            webkit2gtk-4.0 \
+            libsoup2.4-dev
 
       - name: Install app dependencies and build it
         run: |
@@ -60,15 +63,14 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Print Version
-        run:
-          echo "The version is ${{ env.VERSION }}"
+        run: echo "The version is ${{ env.VERSION }}"
 
       - name: Create Release
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.MOONMARS_TOKEN }}
         with:
-          tagName: ${{ env.VERSION }} # Tauri action will replace __VERSION__ with the actual version number
+          tagName: ${{ env.VERSION }}
           releaseName: 'v${{ env.VERSION }}'
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
