@@ -73,6 +73,7 @@ let locale:any = computed(() => {
   const locales = (proxy?.$i18n?.locale || 'en') as string;
   return i18n.global.messages.value[locales]?.el || '';
 })
+
 const {t} = useI18n();
 const toggleLanguages = (val: string) => {
   if (proxy?.$i18n) {

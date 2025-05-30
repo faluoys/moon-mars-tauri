@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [ macos-latest, ubuntu-latest, windows-latest ]
+        platform: [macos-latest, ubuntu-latest, windows-latest]
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -31,50 +31,50 @@ jobs:
         with:
           toolchain: stable
 
-      - name: Install appindicator and webkit2gtk (ubuntu only)
+      - name: Install Linux dependencies (only on ubuntu)
         if: matrix.platform == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libappindicator3-dev webkit2gtk-4.0
+          sudo apt-get install -y \
+            libwebkit2gtk-4.0-dev \
+            libappindicator3-dev \
+            libsoup2.4-dev \
+            libgtk-3-dev \
+            jq
 
       - name: Install app dependencies and build it
         run: |
           pnpm install
           pnpm tauri build
 
-      - name: List Files for Debugging
+      - name: List build output
         run: ls -R src-tauri/target/release/bundle
 
-      - name: Set Windows Version
-        if: runner.os == 'Windows'
-        id: version-Windows
+      - name: Set version from tauri.conf.json
         run: |
-          $VERSION = (Get-Content -Raw -Path src-tauri/tauri.conf.json | ConvertFrom-Json).package.version
-          echo "VERSION=$VERSION" >> $env:GITHUB_ENV
-
-      - name: Set Macos or Linux Version
-        if: runner.os != 'Windows'
-        id: version
-        run: |
-          VERSION=$(jq -r '.package.version' < src-tauri/tauri.conf.json)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          if [[ "${{ runner.os }}" == "Windows" ]]; then
+            $VERSION = (Get-Content -Raw -Path src-tauri/tauri.conf.json | ConvertFrom-Json).package.version
+            echo "VERSION=$VERSION" >> $env:GITHUB_ENV
+          else
+            VERSION=$(jq -r '.package.version' < src-tauri/tauri.conf.json)
+            echo "VERSION=$VERSION" >> $GITHUB_ENV
+          fi
 
       - name: Print Version
-        run:
-          echo "The version is ${{ env.VERSION }}"
+        run: echo "The version is ${{ env.VERSION }}"
 
-      - name: Create Release
+      - name: Create GitHub Release Draft
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.MOONMARS_TOKEN }}
         with:
-          tagName: ${{ env.VERSION }} # Tauri action will replace __VERSION__ with the actual version number
+          tagName: ${{ env.VERSION }}
           releaseName: 'v${{ env.VERSION }}'
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
 
-      - name: Publish to GitHub
+      - name: Upload Bundles to GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           files: src-tauri/target/release/bundle/*/*
@@ -84,4 +84,3 @@ jobs:
           body: 'See the assets to download this version and install.'
           draft: false
           prerelease: false
-          repository: faluoys/moon-mars-app
