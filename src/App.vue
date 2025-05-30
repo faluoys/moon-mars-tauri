@@ -1,9 +1,23 @@
 <script setup lang="ts">
 
+//屏蔽右键菜单
+document.oncontextmenu = function (event: any) {
+  if (window.event) {
+    event = window.event
+  }
+  try {
+    let the = event.srcElement
+    return (the.tagName == 'INPUT' && the.type.toLowerCase() == 'text') ||
+        the.tagName == 'TEXTAREA';
+
+  } catch (e) {
+    return false
+  }
+}
 </script>
 
 <template>
-  <router-view />
+  <router-view/>
 </template>
 
 <style scoped>
@@ -91,6 +105,7 @@ button {
 button:hover {
   border-color: #396cd8;
 }
+
 button:active {
   border-color: #396cd8;
   background-color: #e8e8e8;
@@ -120,6 +135,7 @@ button {
     color: #ffffff;
     background-color: #0f0f0f98;
   }
+
   button:active {
     background-color: #0f0f0f69;
   }

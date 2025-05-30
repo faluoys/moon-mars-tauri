@@ -2,18 +2,37 @@
 
 # Tauri + Vue + TypeScript
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+此模板应可帮助您开始在 Vite 中使用 Vue 3 和 TypeScript 进行开发。该模板使用 Vue 3 `<script setup>` SFC，请查看 [script setup 文档](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) 了解更多信息。
+
+## 概述
+
+📦 开箱即用  
+🎯 基于官方的 [template-vue-ts](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-vue-ts), 低侵入性  
+🌱 结构清晰，可塑性强  
+💪 支持在渲染进程中使用 Rust.js API  
+🖥 很容易实现多窗口
+
+## 快速开始
+
+```sh
+# clone the project
+git clone https://github.com/faluoys/moon-mars-tauri.git
+
+# enter the project directory
+cd moon-mars-tauri
+
+# install dependency
+pnpm install
+
+# develop
+pnpm tauri dev
+```
+
+## 调试
+
+![tauri-vite-vue.gif](/tauri-vite-vue-debug.gif)
 
 ## Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
-
-## Type Support For `.vue` Imports in TS
-
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
-
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
-
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471)
 

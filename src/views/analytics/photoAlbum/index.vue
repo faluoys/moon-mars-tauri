@@ -18,19 +18,19 @@ const selectMusic = (e: Event) => {
 
 <template>
   <div>{{ $t('menu._3DPhotoAlbum') }}</div>
-  <!--/*����������*/-->
+  <!-- 外部立方体 -->
   <div class="wrap">
-    <!--	/*��������Ԫ�ص�����*/-->
+    <!-- 外部立方体元素 -->
     <div class="cube">
-      <!--ǰ��ͼƬ -->
+      <!-- 前面图片 -->
       <div class="out_front">
         <img src="@/assets/img/1.jpg" class="pic"/>
       </div>
-      <!--����ͼƬ -->
+      <!-- 后面图片 -->
       <div class="out_back">
         <img src="@/assets/img/2.jpg" class="pic"/>
       </div>
-      <!--��ͼƬ -->
+      <!-- 左面图片 -->
       <div class="out_left">
         <img src="@/assets/img/3.jpg" class="pic"/>
       </div>
@@ -43,25 +43,25 @@ const selectMusic = (e: Event) => {
       <div class="out_bottom">
         <img src="@/assets/img/6.jpg" class="pic"/>
       </div>
-      <!--С������ -->
+      <!-- 内部立方体 -->
       <span class="in_front">
-				<img src="@/assets/img/7.jpg" class="in_pic"/>
-			</span>
+        <img src="@/assets/img/7.jpg" class="in_pic"/>
+      </span>
       <span class="in_back">
-			     <img src="@/assets/img/8.jpg" class="in_pic"/>
-			</span>
+        <img src="@/assets/img/8.jpg" class="in_pic"/>
+      </span>
       <span class="in_left">
-				<img src="@/assets/img/9.jpg" class="in_pic"/>
-			</span>
+        <img src="@/assets/img/9.jpg" class="in_pic"/>
+      </span>
       <span class="in_right">
-				<img src="@/assets/img/10.jpg" class="in_pic"/>
-			</span>
+        <img src="@/assets/img/10.jpg" class="in_pic"/>
+      </span>
       <span class="in_top">
-				<img src="@/assets/img/11.jpg" class="in_pic"/>
-			</span>
+        <img src="@/assets/img/11.jpg" class="in_pic"/>
+      </span>
       <span class="in_bottom">
-				<img src="@/assets/img/12.jpg" class="in_pic"/>
-			</span>
+        <img src="@/assets/img/12.jpg" class="in_pic"/>
+      </span>
     </div>
   </div>
   <div class="audio">
@@ -86,7 +86,8 @@ const selectMusic = (e: Event) => {
   z-index: 9;
   transform-style: preserve-3d;
 }
-.audio{
+
+.audio {
   display: flex;
   justify-content: center;
   align-items: center;
